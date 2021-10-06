@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9a0dade6-68aa-496d-ace1-73a7380c7bfc">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="padro" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select v.padron,(p.apellido_pa+' '+p.apellido_ma +', ' + p.nombre) nombres,sum(l.cantidad)pasajeros, l.vueltas , sum (l.cantidad*precio) recaudado,l.fecha  from liquidacion l 
+inner join Personal p on p.codigo = l.operador inner join vehiculo v on v.codigo = l.padron where DATEPART(MONTH,L.fecha) = 10 and DATEPART(YEAR,L.fecha) = 2020 and v.padron = $P{padro} group by v.padron, p.apellido_pa , p.apellido_ma, p.nombre ,l.vueltas,l.fecha]]>
+	</queryString>
+	<field name="padron" class="java.lang.Integer"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="pasajeros" class="java.lang.Integer"/>
+	<field name="vueltas" class="java.lang.Integer"/>
+	<field name="recaudado" class="java.lang.Double"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="254" y="28" width="100" height="20" uuid="c28cd39e-d726-40eb-8486-5ddb53583854"/>
+				<textFieldExpression><![CDATA[$P{padro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="2" width="194" height="20" uuid="5b813ba0-4821-4c7e-ac92-c3d118769ed5"/>
+				<text><![CDATA[nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="2" width="100" height="20" uuid="5b3374fd-a97f-4178-8d79-8bdc63c1f04d"/>
+				<text><![CDATA[vueltas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="2" width="100" height="20" uuid="69008589-db0b-48df-9d7c-23b6d87c8e93"/>
+				<text><![CDATA[recaudado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="2" width="100" height="20" uuid="aee73388-91ca-4d00-aafd-6dd5293ebfa7"/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="26" y="2" width="194" height="20" uuid="d9d7296e-a9a4-4385-b664-97161905ffd3"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="2" width="100" height="20" uuid="e7869d84-47e0-4562-878f-b637f9893d68"/>
+				<textFieldExpression><![CDATA[$F{vueltas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="2" width="100" height="20" uuid="5910a7d3-295e-46bc-9397-3dfda98ccfc5"/>
+				<textFieldExpression><![CDATA[$F{recaudado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="2" width="100" height="20" uuid="c6d0f53d-b4e6-4852-896e-556ebd558932"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

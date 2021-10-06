@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d83bba2e-f1b3-4570-93f2-bcb6731cd342">
+	<property name="ireport.zoom" value="1.7715610000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="year" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="codigo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="OPERADOR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT v.padron, (select convert(varchar(30),d.fecha,3)) as fecha, d.hora FROM Distribucion d inner join vehiculo v on d.padron = v.codigo WHERE operador = $P{codigo} and DATEPART(YEAR,d.fecha) = $P{year}]]>
+	</queryString>
+	<field name="padron" class="java.lang.Integer"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="137c4988-3b86-4551-80bc-5970ef30af80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="48" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE SALIDA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="4" width="76" height="20" uuid="67f95368-bcff-4836-9494-4941814f6ff2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OPERADOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="4" width="39" height="20" uuid="6ab514ff-b99a-4c77-bd0b-b651afc7be15"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="471" y="4" width="59" height="20" uuid="dc48ff42-5655-4a71-be92-ce8d756d3cc5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{year}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="4" width="356" height="20" uuid="a271f40a-dc13-4c21-9ab6-bf1a9ec7edaf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{OPERADOR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="2" width="100" height="13" uuid="a02e4d9f-d046-407e-bef0-6e4d7794974c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PADRON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="2" width="100" height="13" uuid="2cd54125-be80-42ea-ae50-ad8fee30af50"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="2" width="100" height="13" uuid="2145fe4d-5a48-43cc-9dcd-d83bef88cf3a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="33" y="3" width="43" height="16" uuid="f9e994c8-8ad9-48ee-bae2-a6b4e2881af7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{padron}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="100" height="16" uuid="b4ebfa5e-323d-415e-a1da-6c789bf0dc17"/>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="3" width="100" height="16" uuid="4b5d65f6-e9d3-43d7-a77d-4f20808975e1"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

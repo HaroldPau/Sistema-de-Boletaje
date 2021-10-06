@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee693b21-e947-4e1a-b16a-f1c2df3db71e">
+	<property name="ireport.zoom" value="1.771561000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="propietario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Npropietario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select vl.padron,nombres,sum(pasajeros) pasajero, sum(vueltas) vuelta,sum (recaudado) recaudado from vistaL vl inner join vehiculo v on 
+v.padron = vl.padron where fecha = $P{fecha} and v.propietario = $P{propietario} group by vl.padron, nombres order by vl.padron asc ]]>
+	</queryString>
+	<field name="padron" class="java.lang.Integer"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="pasajero" class="java.lang.Integer"/>
+	<field name="vuelta" class="java.lang.Integer"/>
+	<field name="recaudado" class="java.lang.Double"/>
+	<variable name="recaudado_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{recaudado}]]></variableExpression>
+	</variable>
+	<variable name="pasajero_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{pasajero}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="341" height="60" uuid="7b6a2ab1-985b-4039-96cf-6fef9dd64b6d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE BOLETAJE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="341" y="0" width="147" height="60" uuid="eba4a182-dbe1-4cb0-9e41-7130c812beac"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="555" height="38" uuid="b37e193c-4ecc-482c-8932-5d156608ef06"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Npropietario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="56" height="20" uuid="1ebf83db-1269-4468-bad1-a769eeb65394"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PADRON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="1" width="100" height="20" uuid="97b22721-4eb7-42df-99a0-ee5b9fc6493e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="1" width="51" height="20" uuid="f8fac235-90de-40ce-b055-771cedf13b11"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VUELTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="1" width="100" height="20" uuid="0b2d3956-4f8b-4044-bcc4-8da6373babe4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECAUDADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="1" width="65" height="20" uuid="f225a130-bf26-484c-8baf-bd1e2f0917ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PASAJEROS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="56" height="20" uuid="4c7da5bb-a0c5-49f7-9cda-ef496bb647ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{padron}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="0" width="242" height="21" uuid="6d23dafd-8a20-4e33-b606-54c22d97be75"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="0" width="51" height="20" uuid="eb714bab-cfcd-4202-a332-946b881a1240"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vuelta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="455" y="0" width="13" height="20" uuid="24e0a9ee-0ad5-4e46-a97a-d178e2926583"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<text><![CDATA[S/.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="0" width="87" height="20" uuid="272ae654-575a-41af-80c8-729e6c0f4397"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{recaudado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="0" width="65" height="20" uuid="e51dcc49-7149-440e-8530-0e6701a51d55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pasajero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="308" y="10" width="150" height="20" uuid="f09fcf59-877d-4585-99c7-3ebe67bbef7e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL RECAUDADO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="10" width="23" height="20" uuid="9a18571e-3570-4fcf-8890-96af8bbf0806"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[S/.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="488" y="10" width="67" height="20" uuid="bde3b390-ea20-48ba-a6c6-e7d6bf30e808"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{recaudado_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="9" width="150" height="20" uuid="c9083947-2a45-4148-a241-3587a09ebb41"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PASAJEROS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="9" width="100" height="20" uuid="8c72b72b-c859-4825-84e5-b518dc5dc681"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pasajero_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
